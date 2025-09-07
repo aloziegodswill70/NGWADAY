@@ -1,42 +1,38 @@
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+/* 🌍 Global styles */
 html,
 body {
-  max-width: 100vw;
-  overflow-x: hidden;
+  @apply bg-ngwaBlack text-white;
+  scroll-behavior: smooth;
+  font-family: 'Poppins', 'Roboto', sans-serif;
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* 🎨 Ngwa Day Theme Buttons */
+.btn-primary {
+  @apply bg-ngwaGreen text-white px-4 py-2 rounded-lg shadow-md hover:bg-ngwaGold transition;
 }
 
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
+.btn-secondary {
+  @apply bg-ngwaRed text-white px-4 py-2 rounded-lg shadow-md hover:bg-ngwaGold transition;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+/* ✨ Headings */
+h1, h2, h3, h4, h5, h6 {
+  @apply font-bold;
+  font-family: 'Poppins', sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
+h1 {
+  @apply text-4xl md:text-5xl text-ngwaRed;
+}
+
+h2 {
+  @apply text-3xl md:text-4xl text-ngwaGold;
+}
+
+h3 {
+  @apply text-2xl md:text-3xl text-ngwaGreen;
 }
