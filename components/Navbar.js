@@ -18,7 +18,7 @@ export default function Navbar() {
         <div className="hidden md:flex space-x-6">
           <Link href="/" className="hover:text-ngwaGold">Home</Link>
           <Link href="/generate" className="hover:text-ngwaGold">Generate Flyer</Link>
-          <Link href="/download" className="hover:text-ngwaGold">Download</Link>
+          <Link href="/developer" className="hover:text-ngwaGold">Meet Developer</Link>
         </div>
 
         {/* Mobile Toggle */}
@@ -35,7 +35,7 @@ export default function Navbar() {
         <div className="md:hidden bg-ngwaBlack text-white px-4 py-3 space-y-2">
           <Link href="/" className="block hover:text-ngwaGold">Home</Link>
           <Link href="/generate" className="block hover:text-ngwaGold">Generate Flyer</Link>
-          <Link href="/download" className="block hover:text-ngwaGold">Download</Link>
+          <Link href="/developer" className="block hover:text-ngwaGold">Meet Developer</Link>
         </div>
       )}
     </nav>

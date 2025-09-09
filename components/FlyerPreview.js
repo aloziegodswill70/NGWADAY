@@ -47,7 +47,7 @@ export default function FlyerPreview({ flyerData }) {
         {/* 🎨 Catchy Background */}
         <div className="absolute inset-0 bg-gradient-to-b from-ngwaGreen via-ngwaRed/70 to-ngwaBlack" />
 
-        {/* 🐅 Tiger Head at Top Center */}
+        {/* 🐅 Elephant at Top Center */}
         <Image
           src="/images/elephant.png"
           alt="enyi"
@@ -56,22 +56,36 @@ export default function FlyerPreview({ flyerData }) {
           className="absolute top-2 left-1/2 -translate-x-1/2 opacity-90"
         />
 
-        {/* 🐘 Elephant bottom-right */}
+        {/* 🐘 Elephants at bottom */}
         <Image
           src="/images/elephant.png"
           alt="Elephant"
           width={200}
           height={200}
-          className="absolute bottom-10 left-2 opacity-20 pointer-events-none"
+          className="absolute bottom-10 left-1 opacity-20 pointer-events-none"
+        />
+        <Image
+          src="/images/elephant.png"
+          alt="Elephant"
+          width={200}
+          height={200}
+          className="absolute bottom-10 right-1 opacity-20 pointer-events-none"
         />
 
-        {/* 🐘 Elephant bottom-right */}
+        {/* 🌴 Palm Trees at the sides */}
         <Image
-          src="/images/elephant.png"
-          alt="Elephant"
-          width={200}
-          height={200}
-          className="absolute bottom-10 right-2 opacity-20 pointer-events-none"
+          src="/images/palm.png"
+          alt="Palm Tree Left"
+          width={120}
+          height={250}
+          className="absolute top-[60%] left-0 -translate-y-1/2 opacity-70 pointer-events-none"
+        />
+        <Image
+          src="/images/palm.png"
+          alt="Palm Tree Right"
+          width={120}
+          height={250}
+          className="absolute top-[60%] right-0 -translate-y-1/2 opacity-70 pointer-events-none"
         />
 
         {/* NGWA DAY Title */}
@@ -87,7 +101,6 @@ export default function FlyerPreview({ flyerData }) {
         <div className="absolute top-36 right-4 w-20 h-20 rounded-full bg-ngwaRed flex items-center justify-center text-white font-bold text-xs text-center p-2 shadow-lg">
           @ Aba<br />{flyerData.year}
         </div>
-
 
         {/* 👤 Profile Photo */}
         {flyerData.image ? (
@@ -106,24 +119,23 @@ export default function FlyerPreview({ flyerData }) {
           />
         )}
 
-        {/* 🙌 Name */}
-        <h3 className="absolute top-[380px] w-full text-center text-2xl font-bold text-white drop-shadow-lg">
-          {flyerData.name || "Your Name"}
-        </h3>
+             {/* 🙌 Name + Slogan immediately under photo */}
+            <div className="absolute top-[355px] left-1/2 -translate-x-1/2 w-[50%] bg-black/40 rounded-lg p-2 text-center">
+            <h3 className="text-xl font-bold text-ngwaGold drop-shadow-lg">
+                {flyerData.name || "Your Name"}
+            </h3>
+            <p className="text-base italic text-white">
+                {flyerData.slogan || "Your slogan goes here"}
+            </p>
+            </div>
 
-        {/* 🌍 Theme of the Cultural Day */}
-        <p className="absolute bottom-28 w-full text-center text-lg font-semibold text-ngwaGold italic px-4">
-          NGWANESS: UMUNNA EHILA NDI ERI O!
-        </p>
 
-        {/* 📝 Slogan */}
-        <p className="absolute bottom-16 w-full text-center text-lg text-white italic px-4">
-          {flyerData.slogan || "Your slogan goes here"}
-        </p>
-
-        {/* 📍 Footer Branding */}
-        <p className="absolute bottom-4 w-full text-center text-sm text-ngwaGold">
-          Ngwa Day {flyerData.year} • NgwaFlyer
+        {/* 📍 Footer Branding with Theme */}
+        <p className="absolute bottom-2 w-full text-center text-sm text-ngwaGreen px-2">
+          <span className="font-bold">
+            NGWANESS: UMUNNA EHILA, NDI ERI O!
+          </span>{" "}
+          • Ngwa Day {flyerData.year} • NgwaFlyer
         </p>
       </div>
 
