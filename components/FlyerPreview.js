@@ -35,14 +35,14 @@ export default function FlyerPreview({ flyerData }) {
 
   return (
     <div>
-      <h2 className="text-2xl font-bold text-ngwaRed mb-4">Flyer Preview</h2>
+      <h2 className="text-xl sm:text-2xl font-bold text-ngwaRed mb-4 text-center">
+        Flyer Preview
+      </h2>
 
       <div
         ref={flyerRef}
-        className="relative bg-white text-black w-full max-w-md mx-auto aspect-[3/4] rounded-lg shadow-2xl overflow-hidden"
-        style={{
-          border: "15px solid gold", // 🌟 Golden Frame
-        }}
+        className="relative bg-white text-black w-full max-w-[320px] sm:max-w-md mx-auto aspect-[3/4] rounded-lg shadow-2xl overflow-hidden"
+        style={{ border: "10px solid gold" }} // reduced border for mobile
       >
         {/* 🎨 Catchy Background */}
         <div className="absolute inset-0 bg-gradient-to-b from-ngwaGreen via-ngwaRed/70 to-ngwaBlack" />
@@ -51,54 +51,53 @@ export default function FlyerPreview({ flyerData }) {
         <Image
           src="/images/elephant.png"
           alt="enyi"
-          width={80}
-          height={80}
-          className="absolute top-2 left-1/2 -translate-x-1/2 opacity-90"
+          width={60}
+          height={60}
+          className="absolute top-1 sm:top-2 left-1/2 -translate-x-1/2 opacity-90"
         />
 
         {/* 🐘 Elephants at bottom */}
         <Image
           src="/images/elephant.png"
           alt="Elephant"
-          width={200}
-          height={200}
-          className="absolute bottom-10 left-1 opacity-20 pointer-events-none"
+          width={120}
+          height={120}
+          className="absolute bottom-8 left-1 opacity-20 pointer-events-none"
         />
         <Image
           src="/images/elephant.png"
           alt="Elephant"
-          width={200}
-          height={200}
-          className="absolute bottom-10 right-1 opacity-20 pointer-events-none"
+          width={120}
+          height={120}
+          className="absolute bottom-8 right-1 opacity-20 pointer-events-none"
         />
 
-        {/* 🌴 Palm Trees at the sides */}
+        {/* 🌴 Palm Trees */}
         <Image
           src="/images/palm.png"
           alt="Palm Tree Left"
-          width={120}
-          height={250}
+          width={80}
+          height={160}
           className="absolute top-[60%] left-0 -translate-y-1/2 opacity-70 pointer-events-none"
         />
         <Image
           src="/images/palm.png"
           alt="Palm Tree Right"
-          width={120}
-          height={250}
+          width={80}
+          height={160}
           className="absolute top-[60%] right-0 -translate-y-1/2 opacity-70 pointer-events-none"
         />
 
         {/* NGWA DAY Title */}
-        <h1 className="absolute top-20 w-full text-center text-4xl font-extrabold text-ngwaGold drop-shadow-lg">
+        <h1 className="absolute top-14 sm:top-20 w-full text-center text-2xl sm:text-4xl font-extrabold text-ngwaGold drop-shadow-lg">
           NGWA DAY {flyerData.year}
         </h1>
 
-        {/* 📅 Date inside circle */}
-        <div className="absolute top-36 left-4 w-20 h-20 rounded-full bg-ngwaRed flex items-center justify-center text-white font-bold text-xs text-center p-2 shadow-lg">
+        {/* 📅 Date Circles */}
+        <div className="absolute top-28 sm:top-36 left-2 sm:left-4 w-14 h-14 sm:w-20 sm:h-20 rounded-full bg-ngwaRed flex items-center justify-center text-white font-bold text-[10px] sm:text-xs text-center p-1 sm:p-2 shadow-lg">
           28 Dec<br />{flyerData.year}
         </div>
-
-        <div className="absolute top-36 right-4 w-20 h-20 rounded-full bg-ngwaRed flex items-center justify-center text-white font-bold text-xs text-center p-2 shadow-lg">
+        <div className="absolute top-28 sm:top-36 right-2 sm:right-4 w-14 h-14 sm:w-20 sm:h-20 rounded-full bg-ngwaRed flex items-center justify-center text-white font-bold text-[10px] sm:text-xs text-center p-1 sm:p-2 shadow-lg">
           @ Aba<br />{flyerData.year}
         </div>
 
@@ -107,44 +106,40 @@ export default function FlyerPreview({ flyerData }) {
           <img
             src={flyerData.image}
             alt="Uploaded"
-            className="absolute top-48 left-1/2 -translate-x-1/2 w-44 h-44 object-cover rounded-full border-4 border-ngwaGold shadow-xl"
+            className="absolute top-40 sm:top-48 left-1/2 -translate-x-1/2 w-28 h-28 sm:w-44 sm:h-44 object-cover rounded-full border-2 sm:border-4 border-ngwaGold shadow-xl"
           />
         ) : (
           <Image
             src="/placeholder.png"
             alt="Placeholder"
-            width={176}
-            height={176}
-            className="absolute top-48 left-1/2 -translate-x-1/2 rounded-full border-4 border-ngwaGold shadow-xl"
+            width={112}
+            height={112}
+            className="absolute top-40 sm:top-48 left-1/2 -translate-x-1/2 rounded-full border-2 sm:border-4 border-ngwaGold shadow-xl"
           />
         )}
 
-             {/* 🙌 Name + Slogan immediately under photo */}
-            <div className="absolute top-[355px] left-1/2 -translate-x-1/2 w-[50%] bg-black/40 rounded-lg p-2 text-center">
-            <h3 className="text-xl font-bold text-ngwaGold drop-shadow-lg">
-                {flyerData.name || "Your Name"}
-            </h3>
-            <p className="text-base italic text-white">
-                {flyerData.slogan || "Your slogan goes here"}
-            </p>
-            </div>
+        {/* 🙌 Name + Slogan */}
+        <div className="absolute top-[280px] sm:top-[355px] left-1/2 -translate-x-1/2 w-[70%] sm:w-[50%] bg-black/40 rounded-lg p-1 sm:p-2 text-center">
+          <h3 className="text-lg sm:text-xl font-bold text-ngwaGold drop-shadow-lg">
+            {flyerData.name || "Your Name"}
+          </h3>
+          <p className="text-xs sm:text-base italic text-white">
+            {flyerData.slogan || "Your slogan goes here"}
+          </p>
+        </div>
 
-
-        {/* 📍 Footer Branding with Theme */}
-        <p className="absolute bottom-2 w-full text-center text-sm text-ngwaGreen px-2">
-          <span className="font-bold">
-            NGWANESS: UMUNNA EHILA, NDI ERI O!
-          </span>{" "}
-          • Ngwa Day {flyerData.year} • NgwaFlyer
+        {/* 📍 Footer Branding */}
+        <p className="absolute bottom-1 sm:bottom-2 w-full text-center text-xs sm:text-sm text-ngwaGreen px-1 sm:px-2">
+          <span className="font-bold">NGWANESS: UMUNNA EHILA, NDI ERI O!</span> • Ngwa Day {flyerData.year} • NgwaFlyer
         </p>
       </div>
 
       {/* Buttons */}
-      <div className="flex flex-col md:flex-row gap-4 mt-6 justify-center">
-        <button onClick={handleDownloadPNG} className="btn-primary">
+      <div className="flex flex-col sm:flex-row gap-4 mt-6 justify-center">
+        <button onClick={handleDownloadPNG} className="btn-primary text-sm sm:text-base">
           Download as PNG
         </button>
-        <button onClick={handleFacebookShare} className="btn-secondary">
+        <button onClick={handleFacebookShare} className="btn-secondary text-sm sm:text-base">
           Share on Facebook
         </button>
       </div>

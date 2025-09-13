@@ -1,4 +1,5 @@
 "use client";
+
 import { useState } from "react";
 import FlyerForm from "@/components/FlyerForm";
 import FlyerPreview from "@/components/FlyerPreview";
@@ -12,14 +13,17 @@ export default function GeneratePage() {
   });
 
   return (
-    <div className="min-h-screen bg-ngwaBlack text-white py-12">
-      <div className="container mx-auto px-6 grid md:grid-cols-2 gap-10">
-        
+    <div className="min-h-screen bg-ngwaBlack text-white py-6 sm:py-12">
+      <div className="container mx-auto px-3 sm:px-6 grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-10">
         {/* Left: Form */}
-        <FlyerForm flyerData={flyerData} setFlyerData={setFlyerData} />
+        <div className="order-2 md:order-1">
+          <FlyerForm flyerData={flyerData} setFlyerData={setFlyerData} />
+        </div>
 
         {/* Right: Live Preview */}
-        <FlyerPreview flyerData={flyerData} />
+        <div className="order-1 md:order-2">
+          <FlyerPreview flyerData={flyerData} />
+        </div>
       </div>
     </div>
   );

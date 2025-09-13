@@ -1,7 +1,7 @@
-// app/layout.js
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { Providers } from "./providers";
 
 export const metadata = {
   title: "Ngwa Day Online",
@@ -19,11 +19,13 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body className="bg-ngwaBlack text-white flex flex-col min-h-screen">
-        <Navbar />
-        <main className="flex-grow container mx-auto px-4 py-6">
-          {children}
-        </main>
-        <Footer />
+        <Providers>
+          <Navbar />
+          <main className="flex-grow container mx-auto px-4 py-6">
+            {children}
+          </main>
+          <Footer />
+        </Providers>
       </body>
     </html>
   );

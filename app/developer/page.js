@@ -1,4 +1,4 @@
-// app/developer/page.js
+// ✅ Public Page — No Auth Required
 import Image from "next/image";
 
 export default function DeveloperPage() {
@@ -9,7 +9,7 @@ export default function DeveloperPage() {
         <div className="flex justify-center">
           <div className="w-40 h-40 rounded-full overflow-hidden border-4 border-ngwaGold shadow-lg">
             <Image
-              src="/images/developer.jpg" // replace with your own photo
+              src="/images/godswil.jpg" // replace with your own photo
               alt="Site Developer"
               width={160}
               height={160}
