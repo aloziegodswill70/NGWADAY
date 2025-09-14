@@ -23,28 +23,55 @@ export default function FlyerPreview({ flyerData }) {
     return () => URL.revokeObjectURL(objectUrl);
   }, [flyerData?.image]);
 
+  // ✅ function to download flyer
+  const handleDownload = () => {
+    const flyer = document.getElementById("flyer-canvas");
+    if (!flyer) return;
+
+    html2canvas(flyer).then((canvas) => {
+      const link = document.createElement("a");
+      link.download = "ngwa-day-flyer.png";
+      link.href = canvas.toDataURL("image/png");
+      link.click();
+    });
+  };
+
+  // ✅ function to share flyer
+  const handleShare = async () => {
+    const flyer = document.getElementById("flyer-canvas");
+    if (!flyer) return;
+
+    const canvas = await html2canvas(flyer);
+    canvas.toBlob(async (blob) => {
+      const file = new File([blob], "ngwa-day-flyer.png", { type: "image/png" });
+
+      if (navigator.share) {
+        await navigator.share({
+          title: "Ngwa Day Flyer",
+          text: "Check out my Ngwa Day flyer!",
+          files: [file],
+        });
+      } else {
+        alert("Sharing not supported on this device.");
+      }
+    });
+  };
+
   return (
-    <div className="bg-white rounded-2xl shadow-lg p-4 flex flex-col items-center">
+    <div className="flex flex-col items-center space-y-4">
       {/* Flyer container */}
-      <div className="relative w-full max-w-sm sm:max-w-md md:max-w-lg aspect-[3/4] bg-ngwaBlack text-center overflow-hidden rounded-xl border-4 border-ngwaGold">
+      <div
+        id="flyer-canvas"
+        className="relative w-full max-w-sm sm:max-w-md md:max-w-lg aspect-[3/4] bg-ngwaBlack text-center overflow-hidden rounded-xl border-4 border-ngwaGold"
+      >
         {/* Top Elephant */}
         <div className="absolute top-2 left-1/2 -translate-x-1/2 w-20 sm:w-28 md:w-32">
           <img src="/images/elephant.png" alt="Elephant" className="w-full h-auto" />
         </div>
 
-        {/* Palm Tree Left */}
-        <div className="absolute bottom-2 left-2 w-16 sm:w-24 md:w-28">
-          <img src="/images/palm.png" alt="Palm Tree" className="w-full h-auto" />
-        </div>
-
-        {/* Palm Tree Right */}
-        <div className="absolute bottom-2 right-2 w-16 sm:w-24 md:w-28">
-          <img src="/images/palm.png" alt="Palm Tree" className="w-full h-auto" />
-        </div>
-
-        {/* User Photo */}
+        {/* User Photo (moved up) */}
         {previewUrl && (
-          <div className="absolute inset-0 flex justify-center items-center">
+          <div className="absolute top-20 left-1/2 -translate-x-1/2">
             <img
               src={previewUrl}
               alt="Uploaded"
@@ -53,7 +80,7 @@ export default function FlyerPreview({ flyerData }) {
           </div>
         )}
 
-        {/* Texts */}
+        {/* Bottom Section */}
         <div className="absolute bottom-20 left-1/2 -translate-x-1/2 w-full px-2">
           <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-ngwaGold">
             {flyerData?.name || "Your Name Here"}
@@ -65,7 +92,7 @@ export default function FlyerPreview({ flyerData }) {
             Ngwa Day {flyerData?.year || "2025"}
           </p>
 
-          {/* ✅ Extra Info Below Year */}
+          {/* Extra Info */}
           <p className="text-xs sm:text-sm md:text-base text-gray-200 mt-1">
             On Dec 28, 2025 at Aba — Mark your calendar
           </p>
@@ -73,6 +100,30 @@ export default function FlyerPreview({ flyerData }) {
             Ngwaness: Umunna Ehila
           </p>
         </div>
+
+        {/* Palm Trees */}
+        <div className="absolute bottom-2 left-2 w-16 sm:w-24 md:w-28">
+          <img src="/images/palm.png" alt="Palm Tree" className="w-full h-auto" />
+        </div>
+        <div className="absolute bottom-2 right-2 w-16 sm:w-24 md:w-28">
+          <img src="/images/palm.png" alt="Palm Tree" className="w-full h-auto" />
+        </div>
+      </div>
+
+      {/* ✅ Download & Share buttons */}
+      <div className="flex space-x-4">
+        <button
+          onClick={handleDownload}
+          className="bg-ngwaGold text-black px-4 py-2 rounded-lg font-semibold shadow hover:bg-yellow-400"
+        >
+          Download
+        </button>
+        <button
+          onClick={handleShare}
+          className="bg-ngwaGreen text-white px-4 py-2 rounded-lg font-semibold shadow hover:bg-green-600"
+        >
+          Share
+        </button>
       </div>
     </div>
   );
