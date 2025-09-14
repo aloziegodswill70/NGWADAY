@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import html2canvas from "html2canvas"; // ✅ import added
 
 export default function FlyerPreview({ flyerData }) {
   const [previewUrl, setPreviewUrl] = useState(null);
@@ -28,7 +29,7 @@ export default function FlyerPreview({ flyerData }) {
     const flyer = document.getElementById("flyer-canvas");
     if (!flyer) return;
 
-    html2canvas(flyer).then((canvas) => {
+    html2canvas(flyer, { backgroundColor: null }).then((canvas) => {
       const link = document.createElement("a");
       link.download = "ngwa-day-flyer.png";
       link.href = canvas.toDataURL("image/png");
@@ -41,7 +42,7 @@ export default function FlyerPreview({ flyerData }) {
     const flyer = document.getElementById("flyer-canvas");
     if (!flyer) return;
 
-    const canvas = await html2canvas(flyer);
+    const canvas = await html2canvas(flyer, { backgroundColor: null });
     canvas.toBlob(async (blob) => {
       const file = new File([blob], "ngwa-day-flyer.png", { type: "image/png" });
 
@@ -69,7 +70,7 @@ export default function FlyerPreview({ flyerData }) {
           <img src="/images/elephant.png" alt="Elephant" className="w-full h-auto" />
         </div>
 
-        {/* User Photo (moved up) */}
+        {/* User Photo */}
         {previewUrl && (
           <div className="absolute top-20 left-1/2 -translate-x-1/2">
             <img
@@ -81,22 +82,20 @@ export default function FlyerPreview({ flyerData }) {
         )}
 
         {/* Bottom Section */}
-        <div className="absolute bottom-20 left-1/2 -translate-x-1/2 w-full px-2">
+        <div className="absolute bottom-32 left-1/2 -translate-x-1/2 w-full px-2">
           <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-ngwaGold">
             {flyerData?.name || "Your Name Here"}
           </h2>
           <p className="text-sm sm:text-base md:text-lg text-white italic">
             {flyerData?.slogan || "Your slogan goes here"}
           </p>
-          <p className="text-lg sm:text-xl md:text-2xl font-bold text-ngwaGreen mt-2">
-            Ngwa Day {flyerData?.year || "2025"}
-          </p>
+        </div>
 
-          {/* Extra Info */}
-          <p className="text-xs sm:text-sm md:text-base text-gray-200 mt-1">
-            On Dec 28, 2025 at Aba — Mark your calendar
-          </p>
-          <p className="text-xs sm:text-sm md:text-base text-ngwaGold font-semibold mt-1">
+        {/* ✅ White framed transparent info block between palms */}
+        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 w-[90%] sm:w-[80%] bg-white/80 text-black rounded-lg shadow-md p-2 sm:p-3 text-center">
+          <p className="text-lg sm:text-xl font-bold">NGWA DAY {flyerData?.year || "2025"}</p>
+          <p className="text-xs sm:text-sm mt-1">On Dec 28, 2025 at Aba — Mark your calendar</p>
+          <p className="text-xs sm:text-sm text-ngwaGreen font-semibold mt-1">
             Ngwaness: Umunna Ehila
           </p>
         </div>
