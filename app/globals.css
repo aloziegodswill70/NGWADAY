@@ -5,34 +5,72 @@
 /* 🌍 Global styles */
 html,
 body {
-  @apply bg-ngwaBlack text-white;
+  @apply text-white;
   scroll-behavior: smooth;
   font-family: 'Poppins', 'Roboto', sans-serif;
+
+  /* 🎨 Elegant Ngwa Theme Background */
+  background: linear-gradient(
+    135deg,
+    #ffd700 0%,       /* Rich Gold */
+    #fff5e1 45%,       /* Soft White-Gold */
+    #b30000 100%       /* Deep Royal Red */
+  );
+  background-attachment: fixed;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+/* ✨ Subtle Gold Glow Overlay */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at top left, rgba(255, 255, 255, 0.25), transparent 70%),
+              radial-gradient(circle at bottom right, rgba(255, 215, 0, 0.2), transparent 70%);
+  pointer-events: none;
+  z-index: -1;
 }
 
 /* 🎨 Ngwa Day Theme Buttons */
 .btn-primary {
-  @apply bg-ngwaGreen text-white px-4 py-2 rounded-lg shadow-md hover:bg-ngwaGold transition;
+  @apply bg-ngwaGreen text-white px-4 py-2 rounded-lg shadow-md hover:bg-ngwaGold transition duration-300;
 }
 
 .btn-secondary {
-  @apply bg-ngwaRed text-white px-4 py-2 rounded-lg shadow-md hover:bg-ngwaGold transition;
+  @apply bg-ngwaRed text-white px-4 py-2 rounded-lg shadow-md hover:bg-ngwaGold transition duration-300;
 }
 
 /* ✨ Headings */
 h1, h2, h3, h4, h5, h6 {
   @apply font-bold;
   font-family: 'Poppins', sans-serif;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
 }
 
 h1 {
-  @apply text-4xl md:text-5xl text-ngwaRed;
+  @apply text-4xl md:text-5xl;
+  color: #b30000; /* Deep Red */
 }
 
 h2 {
-  @apply text-3xl md:text-4xl text-ngwaGold;
+  @apply text-3xl md:text-4xl;
+  color: #ffd700; /* Gold */
 }
 
 h3 {
-  @apply text-2xl md:text-3xl text-ngwaGreen;
+  @apply text-2xl md:text-3xl;
+  color: #006400; /* Deep Green */
+}
+
+/* 💫 Card Styling for Flyer & Components */
+.card-elegant {
+  @apply rounded-2xl shadow-xl border border-yellow-300 bg-white/10 backdrop-blur-md p-4;
+  box-shadow: 0 8px 20px rgba(255, 215, 0, 0.25);
+}
+
+/* 🔘 Utility for Gold Text Glow */
+.text-gold-glow {
+  color: #ffd700;
+  text-shadow: 0 0 8px rgba(255, 215, 0, 0.6);
 }
