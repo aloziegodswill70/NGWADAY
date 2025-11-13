@@ -1,23 +1,35 @@
-// app/page.js
+"use client";
 import Image from "next/image";
 import Link from "next/link";
 
 export default function Home() {
-  return (
-    <div className="bg-gradient-to-b from-[#FFD700] via-white to-[#FFD700]/90 text-ngwaBlack min-h-screen">
-      {/* ================= HERO SECTION ================= */}
-      <section className="relative flex flex-col items-center justify-center min-h-[90vh] text-center px-4">
-        <div className="absolute inset-0 bg-gradient-to-b from-[#FFD700]/70 via-white/80 to-[#B22222]/30 -z-10" />
+  const heroButtons = [
+    { label: "Vendors", href: "/vendors", color: "bg-[#B22222]" },
+    { label: "Contents", href: "/contents", color: "bg-[#FFD700] text-black" },
+    { label: "Connect", href: "/connect", color: "bg-[#006400]" },
+    { label: "Gallery", href: "/gallery", color: "bg-white text-[#B22222]" },
+    { label: "Donate", href: "/donate", color: "bg-[#B22222]" },
+    { label: "About", href: "/about", color: "bg-[#FFD700] text-black" },
+  ];
 
-        <div className="max-w-3xl mx-auto space-y-6 backdrop-blur-md bg-white/10 rounded-2xl shadow-2xl p-6">
+  return (
+    <div className="bg-gradient-to-b from-[#FFD700] via-white to-[#FFD700]/90 text-black min-h-screen">
+      {/* ================= HERO SECTION ================= */}
+      <section className="relative flex flex-col items-center justify-center min-h-[95vh] text-center px-4 overflow-hidden">
+        {/* Gradient background */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#FFD700]/80 via-white/90 to-[#B22222]/40 -z-10" />
+
+        {/* Hero content */}
+        <div className="max-w-3xl mx-auto space-y-6 backdrop-blur-md bg-white/10 rounded-3xl shadow-2xl p-6 border border-[#FFD700]/40">
           <h1 className="text-5xl md:text-6xl font-extrabold text-[#B22222] drop-shadow-[0_3px_3px_rgba(0,0,0,0.4)]">
             NGWA DAY 2025
           </h1>
 
-          <p className="text-lg md:text-xl text-[#FFD700] font-semibold tracking-wide">
+          <p className="text-lg md:text-xl text-[#ff4800] font-semibold tracking-wide">
             Celebrate Culture • Celebrate Unity • Celebrate Ngwa Land
           </p>
 
+          {/* Hero image */}
           <div className="flex justify-center">
             <Image
               src="/images/enyi.jpg"
@@ -29,12 +41,32 @@ export default function Home() {
             />
           </div>
 
-          <Link
-            href="/generate"
-            className="bg-[#B22222] text-white font-semibold text-lg px-8 py-4 rounded-xl shadow-lg hover:bg-[#FFD700] hover:text-black transition-all duration-300"
-          >
-            Generate Your Flyer
-          </Link>
+          {/* Hero buttons */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mt-6">
+            {heroButtons.map((btn, i) => (
+              <Link
+                key={i}
+                href={btn.href}
+                className={`${btn.color} py-3 rounded-xl font-semibold text-center shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-300`}
+              >
+                {btn.label}
+              </Link>
+            ))}
+          </div>
+
+          {/* Generate Flyer Button */}
+          <div className="mt-6">
+            <Link
+              href="/generate"
+              className="bg-[#B22222] text-white font-semibold text-lg px-8 py-4 rounded-xl shadow-lg hover:bg-[#FFD700] hover:text-black transition-all duration-300"
+            >
+              Generate Your Flyer
+            </Link>
+          </div>
+
+          <p className="mt-6 text-sm text-black/70">
+            Experience the pride of Ngwa Land — December 28th, 2025
+          </p>
         </div>
       </section>
 
@@ -87,13 +119,13 @@ function Section({ title, color, text }) {
 
   return (
     <section className="py-16 px-6">
-      <div className="max-w-4xl mx-auto text-center bg-white/20 backdrop-blur-sm p-8 rounded-2xl shadow-xl border border-[#FFD700]/50">
+      <div className="max-w-4xl mx-auto text-center bg-white/40 backdrop-blur-sm p-8 rounded-3xl shadow-xl border border-[#FFD700]/60">
         <h2
           className={`text-4xl md:text-5xl font-bold mb-6 ${titleColor} drop-shadow-md`}
         >
           {title}
         </h2>
-        <p className="text-lg text-gray-900 font-medium leading-relaxed">
+        <p className="text-lg text-black font-medium leading-relaxed">
           {text}
         </p>
       </div>
