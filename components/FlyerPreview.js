@@ -27,13 +27,31 @@ export default function FlyerPreview({ flyerData }) {
     return await html2canvas(flyer, {
       scale: 3,
       useCORS: true,
-      backgroundColor: null,
+      allowTaint: true,
+      imageTimeout: 0,
+      backgroundColor: "#ffffff",
+      onclone: (clonedDoc) => {
+        const clonedFlyer = clonedDoc.getElementById("flyer-canvas");
+
+        clonedFlyer.style.transform = "none";
+        clonedFlyer.style.opacity = "1";
+      },
     });
   };
 
   const handleDownload = async () => {
     try {
       setDownloading(true);
+
+      // Ensure image loads before capturing
+      if (previewUrl) {
+        await new Promise((resolve) => {
+          const img = new Image();
+          img.src = previewUrl;
+          img.onload = resolve;
+          img.onerror = resolve;
+        });
+      }
 
       const canvas = await generateCanvas();
       if (!canvas) return;
@@ -44,6 +62,7 @@ export default function FlyerPreview({ flyerData }) {
       link.href = dataUrl;
       link.click();
     } catch (err) {
+      console.error(err);
       alert("Error downloading flyer. Try again.");
     } finally {
       setDownloading(false);
@@ -88,7 +107,7 @@ export default function FlyerPreview({ flyerData }) {
 
   return (
     <div className="flex flex-col items-center space-y-4">
-      {/* Flyer Container */}
+      {/* Flyer Canvas */}
       <div
         id="flyer-canvas"
         className="relative w-full max-w-[22rem] sm:max-w-sm md:max-w-md aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl border-4 border-white flex flex-col justify-between"
@@ -107,7 +126,7 @@ export default function FlyerPreview({ flyerData }) {
           </h2>
         </div>
 
-        {/* Image Section */}
+        {/* Uploaded Image */}
         {previewUrl && (
           <div className="flex justify-center items-center px-4">
             <div className="w-28 h-28 sm:w-36 sm:h-36 md:w-40 md:h-40 rounded-2xl overflow-hidden shadow-lg border-4 border-white">
@@ -120,7 +139,7 @@ export default function FlyerPreview({ flyerData }) {
           </div>
         )}
 
-        {/* Text Content */}
+        {/* Text Section */}
         <div className="text-center px-4 sm:px-6 space-y-2">
           <h3 className="text-2xl sm:text-3xl font-bold text-[#222]">
             {flyerData?.name || "Your Name Here"}
@@ -139,7 +158,7 @@ export default function FlyerPreview({ flyerData }) {
             </span>
           </p>
 
-          <p className="text-sm sm:text-base text-[#222] flex flex-col items-center">
+          <p className="text-sm sm:text-base text-[#222]">
             📍 Ngwa High School, Aba
           </p>
 
@@ -151,40 +170,28 @@ export default function FlyerPreview({ flyerData }) {
         <div className="h-6 bg-gradient-to-t from-yellow-400/40 to-transparent"></div>
       </div>
 
-      {/* Action Buttons */}
+      {/* Buttons */}
       <div className="flex space-x-3">
-        {/* DOWNLOAD BUTTON */}
+        {/* Download */}
         <button
           onClick={handleDownload}
           disabled={downloading || sharing}
-          className={`bg-white text-black px-4 py-2 rounded-lg font-semibold shadow transition flex items-center gap-2 ${
-            downloading || sharing
-              ? "opacity-50 cursor-not-allowed"
-              : "hover:bg-yellow-100"
+          className={`bg-white text-black px-4 py-2 rounded-lg font-semibold shadow transition ${
+            downloading ? "opacity-50" : "hover:bg-yellow-100"
           }`}
         >
-          {downloading ? (
-            <div className="w-5 h-5 border-2 border-gray-400 border-t-transparent rounded-full animate-spin"></div>
-          ) : (
-            "Download"
-          )}
+          {downloading ? "Preparing..." : "Download"}
         </button>
 
-        {/* SHARE BUTTON */}
+        {/* Share */}
         <button
           onClick={handleShare}
           disabled={sharing || downloading}
-          className={`bg-green-700 text-white px-4 py-2 rounded-lg font-semibold shadow transition flex items-center gap-2 ${
-            sharing || downloading
-              ? "opacity-50 cursor-not-allowed"
-              : "hover:bg-green-800"
+          className={`bg-green-700 text-white px-4 py-2 rounded-lg font-semibold shadow transition ${
+            sharing ? "opacity-50" : "hover:bg-green-800"
           }`}
         >
-          {sharing ? (
-            <div className="w-5 h-5 border-2 border-white/80 border-t-transparent rounded-full animate-spin"></div>
-          ) : (
-            "Share"
-          )}
+          {sharing ? "Sharing..." : "Share"}
         </button>
       </div>
     </div>

@@ -51,7 +51,7 @@ export default function MemeCountdownPage() {
   };
 
   return (
-    <div className="p-6 max-w-3xl mx-auto">
+    <div className="p-6 max-w-2xl mx-auto">
       <h1 className="text-3xl font-extrabold text-center mb-6 text-yellow-600 drop-shadow">
         Ngwa Cultural Meme Countdown Generator
       </h1>
@@ -74,7 +74,7 @@ export default function MemeCountdownPage() {
           className="w-full p-3 border rounded-lg text-black"
         />
 
-        {/* UPLOAD IMAGE */}
+        {/* Upload image */}
         <input
           type="file"
           accept="image/*"
@@ -90,47 +90,50 @@ export default function MemeCountdownPage() {
         </button>
       </div>
 
-      {/* GENERATED CARD PREVIEW */}
+      {/* GENERATED CARD */}
       {generated && (
         <div className="mt-8">
+
+          {/* CARD */}
           <div
             ref={cardRef}
-            className="relative w-full h-96 bg-gradient-to-br from-yellow-700 to-red-900 rounded-2xl shadow-2xl overflow-hidden p-6 flex flex-col justify-center items-center"
+            className="relative w-full max-w-full bg-gradient-to-br from-yellow-700 to-red-900 rounded-2xl shadow-2xl overflow-hidden p-4 sm:p-6 flex flex-col justify-center items-center aspect-[4/5]"
           >
-            {/* Uploaded Image */}
+            {/* User Image */}
             {uploadedImg && (
               <img
                 src={uploadedImg}
-                alt="Uploaded"
-                className="absolute top-4 left-4 w-28 h-28 object-cover rounded-xl border-2 border-white shadow-lg"
+                alt="uploaded"
+                className="absolute top-2 left-2 w-20 h-20 sm:w-28 sm:h-28 object-cover rounded-xl border-2 border-white shadow-lg"
               />
             )}
 
-            {/* Random Meme Image */}
-            <img
-              src="/images/laughing elephant.png"
-              alt="Meme Character"
-              className="absolute bottom-0 left-0 w-40 h-40 object-contain opacity-90"
-            />
-
-            {/* Tribal Decoration */}
+            {/* Meme Character */}
             <img
               src="/images/dancingtortoise.png"
-              className="absolute top-0 right-0 w-32 opacity-70"
+              alt="Meme Character"
+              className="absolute bottom-0 left-0 w-28 sm:w-40 opacity-90"
             />
 
-            {/* TEXT */}
-            <p className="text-5xl font-black text-white drop-shadow-2xl text-center tracking-tight">
+            {/* Decoration */}
+            <img
+              src="/images/laughing elephant.png"
+              className="absolute top-0 right-0 w-20 sm:w-32 opacity-70"
+            />
+
+            {/* COUNTDOWN TEXT */}
+            <p className="text-3xl sm:text-5xl font-black text-white drop-shadow-2xl text-center tracking-tight px-4">
               {count}
             </p>
 
+            {/* CAPTION */}
             {caption && (
-              <p className="text-xl text-white mt-4 font-semibold drop-shadow text-center">
+              <p className="text-md sm:text-xl text-white mt-3 font-semibold drop-shadow text-center px-3">
                 {caption}
               </p>
             )}
 
-            <p className="mt-6 text-sm italic text-white/80">
+            <p className="mt-4 text-xs sm:text-sm italic text-white/80 text-center">
               Ngwa Day Countdown Meme • Share & Laugh 😄🔥
             </p>
           </div>
