@@ -10,7 +10,7 @@ export default function HeroSection() {
     { label: 'Connect', href: '/connect', color: 'bg-[#006400]' },
     { label: 'Gallery', href: '/gallery', color: 'bg-white text-[#B22222]' },
     { label: 'Donate', href: '/donate', color: 'bg-[#B22222]' },
-    { label: 'About', href: '/about', color: 'bg-[#FFD700]' },
+    { label: 'meme', href: '/meme', color: 'bg-white text-[#B22222]' },
   ];
 
   return (

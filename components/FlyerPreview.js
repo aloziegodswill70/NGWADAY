@@ -5,6 +5,8 @@ import html2canvas from "html2canvas";
 
 export default function FlyerPreview({ flyerData }) {
   const [previewUrl, setPreviewUrl] = useState(null);
+  const [downloading, setDownloading] = useState(false);
+  const [sharing, setSharing] = useState(false);
 
   useEffect(() => {
     if (!flyerData?.image) return setPreviewUrl(null);
@@ -18,34 +20,70 @@ export default function FlyerPreview({ flyerData }) {
     }
   }, [flyerData?.image]);
 
-  const handleDownload = () => {
+  const generateCanvas = async () => {
     const flyer = document.getElementById("flyer-canvas");
-    if (!flyer) return;
-    html2canvas(flyer, { backgroundColor: null }).then((canvas) => {
-      const link = document.createElement("a");
-      link.download = "ngwa-day-flyer.png";
-      link.href = canvas.toDataURL("image/png");
-      link.click();
+    if (!flyer) return null;
+
+    return await html2canvas(flyer, {
+      scale: 3,
+      useCORS: true,
+      backgroundColor: null,
     });
   };
 
-  const handleShare = async () => {
-    const flyer = document.getElementById("flyer-canvas");
-    if (!flyer) return;
+  const handleDownload = async () => {
+    try {
+      setDownloading(true);
 
-    const canvas = await html2canvas(flyer, { backgroundColor: null });
-    canvas.toBlob(async (blob) => {
-      const file = new File([blob], "ngwa-day-flyer.png", { type: "image/png" });
-      if (navigator.share) {
-        await navigator.share({
-          title: "Ngwa Day Flyer",
-          text: "Check out my Ngwa Day flyer!",
-          files: [file],
+      const canvas = await generateCanvas();
+      if (!canvas) return;
+
+      const dataUrl = canvas.toDataURL("image/png");
+      const link = document.createElement("a");
+      link.download = "ngwa-day-flyer.png";
+      link.href = dataUrl;
+      link.click();
+    } catch (err) {
+      alert("Error downloading flyer. Try again.");
+    } finally {
+      setDownloading(false);
+    }
+  };
+
+  const handleShare = async () => {
+    try {
+      setSharing(true);
+
+      const canvas = await generateCanvas();
+      if (!canvas) return;
+
+      canvas.toBlob(async (blob) => {
+        if (!blob) {
+          alert("Failed to prepare file.");
+          setSharing(false);
+          return;
+        }
+
+        const file = new File([blob], "ngwa-day-flyer.png", {
+          type: "image/png",
         });
-      } else {
-        alert("Sharing not supported on this device.");
-      }
-    });
+
+        if (navigator.canShare && navigator.canShare({ files: [file] })) {
+          await navigator.share({
+            title: "Ngwa Day Flyer",
+            text: "Check out my custom Ngwa Day flyer!",
+            files: [file],
+          });
+        } else {
+          alert("Sharing not supported on this device.");
+        }
+
+        setSharing(false);
+      });
+    } catch (err) {
+      alert("Error sharing flyer.");
+      setSharing(false);
+    }
   };
 
   return (
@@ -55,7 +93,8 @@ export default function FlyerPreview({ flyerData }) {
         id="flyer-canvas"
         className="relative w-full max-w-[22rem] sm:max-w-sm md:max-w-md aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl border-4 border-white flex flex-col justify-between"
         style={{
-          background: "linear-gradient(180deg, #FFD700 0%, #FFF8DC 60%, #FFD700 100%)",
+          background:
+            "linear-gradient(180deg, #FFD700 0%, #FFF8DC 60%, #FFD700 100%)",
         }}
       >
         {/* Top Header */}
@@ -101,7 +140,7 @@ export default function FlyerPreview({ flyerData }) {
           </p>
 
           <p className="text-sm sm:text-base text-[#222] flex flex-col items-center">
-            📍 <span>Ngwa High School, Aba</span>
+            📍 Ngwa High School, Aba
           </p>
 
           <p className="text-sm sm:text-base text-[#222]">
@@ -109,23 +148,43 @@ export default function FlyerPreview({ flyerData }) {
           </p>
         </div>
 
-        {/* Bottom Highlight */}
         <div className="h-6 bg-gradient-to-t from-yellow-400/40 to-transparent"></div>
       </div>
 
       {/* Action Buttons */}
       <div className="flex space-x-3">
+        {/* DOWNLOAD BUTTON */}
         <button
           onClick={handleDownload}
-          className="bg-white text-black px-4 py-2 rounded-lg font-semibold shadow hover:bg-yellow-100 transition"
+          disabled={downloading || sharing}
+          className={`bg-white text-black px-4 py-2 rounded-lg font-semibold shadow transition flex items-center gap-2 ${
+            downloading || sharing
+              ? "opacity-50 cursor-not-allowed"
+              : "hover:bg-yellow-100"
+          }`}
         >
-          Download
+          {downloading ? (
+            <div className="w-5 h-5 border-2 border-gray-400 border-t-transparent rounded-full animate-spin"></div>
+          ) : (
+            "Download"
+          )}
         </button>
+
+        {/* SHARE BUTTON */}
         <button
           onClick={handleShare}
-          className="bg-green-700 text-white px-4 py-2 rounded-lg font-semibold shadow hover:bg-green-800 transition"
+          disabled={sharing || downloading}
+          className={`bg-green-700 text-white px-4 py-2 rounded-lg font-semibold shadow transition flex items-center gap-2 ${
+            sharing || downloading
+              ? "opacity-50 cursor-not-allowed"
+              : "hover:bg-green-800"
+          }`}
         >
-          Share
+          {sharing ? (
+            <div className="w-5 h-5 border-2 border-white/80 border-t-transparent rounded-full animate-spin"></div>
+          ) : (
+            "Share"
+          )}
         </button>
       </div>
     </div>

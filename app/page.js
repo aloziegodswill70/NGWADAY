@@ -9,39 +9,49 @@ export default function Home() {
     { label: "Connect", href: "/connect", color: "bg-[#006400]" },
     { label: "Gallery", href: "/gallery", color: "bg-white text-[#B22222]" },
     { label: "Donate", href: "/donate", color: "bg-[#B22222]" },
-    { label: "About", href: "/about", color: "bg-[#FFD700] text-black" },
+    { label: "meme", href: "/meme", color: "bg-white text-[#B22222]" },
   ];
 
   return (
-    <div className="bg-gradient-to-b from-[#FFD700] via-white to-[#FFD700]/90 text-black min-h-screen">
+    <div className="bg-[#0B3D0B] text-white min-h-screen">
       {/* ================= HERO SECTION ================= */}
-      <section className="relative flex flex-col items-center justify-center min-h-[95vh] text-center px-4 overflow-hidden">
-        {/* Gradient background */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#FFD700]/80 via-white/90 to-[#B22222]/40 -z-10" />
+      <section className="relative flex flex-col items-center justify-center min-h-[95vh] text-center px-4">
 
-        {/* Hero content */}
-        <div className="max-w-3xl mx-auto space-y-6 backdrop-blur-md bg-white/10 rounded-3xl shadow-2xl p-6 border border-[#FFD700]/40">
-          <h1 className="text-5xl md:text-6xl font-extrabold text-[#B22222] drop-shadow-[0_3px_3px_rgba(0,0,0,0.4)]">
+        {/* LOGO */}
+        <div className="mb-6">
+          <Image
+            src="/images/logongwaday.png"
+            alt="Ngwa Logo"
+            width={100}
+            height={100}
+            className="rounded-full border-4 border-yellow-500 shadow-xl"
+            priority
+          />
+        </div>
+
+        {/* Hero card container */}
+        <div className="max-w-3xl mx-auto space-y-6 backdrop-blur-md bg-white/10 rounded-3xl shadow-2xl p-6 border border-yellow-500/40">
+          <h1 className="text-5xl md:text-6xl font-extrabold text-yellow-400 drop-shadow-2xl">
             NGWA DAY 2025
           </h1>
 
-          <p className="text-lg md:text-xl text-[#ff4800] font-semibold tracking-wide">
+          <p className="text-lg md:text-xl text-[#ffda79] font-semibold tracking-wide">
             Celebrate Culture • Celebrate Unity • Celebrate Ngwa Land
           </p>
 
-          {/* Hero image */}
+          {/* Hero main image */}
           <div className="flex justify-center">
             <Image
               src="/images/enyi.jpg"
               alt="Ngwa Symbol"
               width={240}
               height={240}
-              className="rounded-full shadow-lg border-4 border-[#FFD700]"
+              className="rounded-full shadow-lg border-4 border-yellow-500"
               priority
             />
           </div>
 
-          {/* Hero buttons */}
+          {/* Buttons */}
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mt-6">
             {heroButtons.map((btn, i) => (
               <Link
@@ -54,17 +64,17 @@ export default function Home() {
             ))}
           </div>
 
-          {/* Generate Flyer Button */}
+          {/* Generate Button */}
           <div className="mt-6">
             <Link
               href="/generate"
-              className="bg-[#B22222] text-white font-semibold text-lg px-8 py-4 rounded-xl shadow-lg hover:bg-[#FFD700] hover:text-black transition-all duration-300"
+              className="bg-[#B22222] text-white font-semibold text-lg px-8 py-4 rounded-xl shadow-lg hover:bg-yellow-500 hover:text-black transition-all duration-300"
             >
               Generate Your Flyer
             </Link>
           </div>
 
-          <p className="mt-6 text-sm text-black/70">
+          <p className="mt-6 text-sm text-yellow-200">
             Experience the pride of Ngwa Land — December 28th, 2025
           </p>
         </div>
@@ -112,20 +122,18 @@ export default function Home() {
 function Section({ title, color, text }) {
   const titleColor =
     color === "red"
-      ? "text-[#B22222]"
+      ? "text-[#FF6B6B]"
       : color === "gold"
       ? "text-[#FFD700]"
       : "text-white";
 
   return (
     <section className="py-16 px-6">
-      <div className="max-w-4xl mx-auto text-center bg-white/40 backdrop-blur-sm p-8 rounded-3xl shadow-xl border border-[#FFD700]/60">
-        <h2
-          className={`text-4xl md:text-5xl font-bold mb-6 ${titleColor} drop-shadow-md`}
-        >
+      <div className="max-w-4xl mx-auto text-center bg-white/10 backdrop-blur-sm p-8 rounded-3xl shadow-xl border border-yellow-500/40">
+        <h2 className={`text-4xl md:text-5xl font-bold mb-6 ${titleColor}`}>
           {title}
         </h2>
-        <p className="text-lg text-black font-medium leading-relaxed">
+        <p className="text-lg text-white/90 font-medium leading-relaxed">
           {text}
         </p>
       </div>
