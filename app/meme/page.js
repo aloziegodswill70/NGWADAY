@@ -27,11 +27,10 @@ export default function MemeCountdownPage() {
 
   const generateCard = () => {
     if (!count) return;
-
     const randomMeme =
       memeCharacters[Math.floor(Math.random() * memeCharacters.length)];
-
     setMemeImg(randomMeme);
+
     setGenerated(true);
   };
 
@@ -52,7 +51,7 @@ export default function MemeCountdownPage() {
 
   return (
     <div className="p-6 max-w-2xl mx-auto">
-      <h1 className="text-3xl font-extrabold text-center mb-6 text-yellow-600 drop-shadow">
+      <h1 className="text-3xl font-extrabold text-center mb-6 text-green-800 drop-shadow">
         Ngwa Cultural Meme Countdown Generator
       </h1>
 
@@ -84,63 +83,75 @@ export default function MemeCountdownPage() {
 
         <button
           onClick={generateCard}
-          className="bg-yellow-600 text-white w-full py-3 rounded-lg font-bold shadow-lg hover:bg-yellow-700 transition"
+          className="bg-green-700 text-white w-full py-3 rounded-lg font-bold shadow-lg hover:bg-green-800 transition"
         >
           Generate Meme Card
         </button>
       </div>
 
-      {/* GENERATED CARD */}
+      {/* GENERATED MEME CARD */}
       {generated && (
         <div className="mt-8">
-
-          {/* CARD */}
           <div
             ref={cardRef}
-            className="relative w-full max-w-full bg-gradient-to-br from-yellow-700 to-red-900 rounded-2xl shadow-2xl overflow-hidden p-4 sm:p-6 flex flex-col justify-center items-center aspect-[4/5]"
+            className="relative w-full max-w-full rounded-2xl shadow-2xl overflow-hidden p-4 sm:p-6 flex flex-col justify-center items-center aspect-[4/5]"
+            style={{
+              background:
+                "linear-gradient(160deg, #064d06 0%, #0b6d0b 60%, #064d06 100%)",
+            }}
           >
-            {/* User Image */}
+            {/* LOGO AT TOP */}
+            <img
+              src="/images/logongwaday.png"
+              alt="Logo"
+              className="absolute top-3 left-1/2 -translate-x-1/2 w-16 sm:w-20 object-contain opacity-95 drop-shadow"
+            />
+
+            {/* USER IMAGE */}
             {uploadedImg && (
               <img
                 src={uploadedImg}
-                alt="uploaded"
-                className="absolute top-2 left-2 w-20 h-20 sm:w-28 sm:h-28 object-cover rounded-xl border-2 border-white shadow-lg"
+                alt="User Upload"
+                className="absolute top-16 sm:top-20 left-3 w-20 h-20 sm:w-28 sm:h-28 object-cover rounded-xl border-2 border-white shadow-lg"
               />
             )}
 
-            {/* Meme Character */}
+            {/* FUNNY MEME CHARACTER BOTTOM-LEFT */}
             <img
               src="/images/dancingtortoise.png"
-              alt="Meme Character"
-              className="absolute bottom-0 left-0 w-28 sm:w-40 opacity-90"
+              alt="Meme"
+              className="absolute bottom-2 left-2 w-24 sm:w-32 object-contain drop-shadow-xl"
             />
 
-            {/* Decoration */}
+            {/* LAUGHING ELEPHANT TOP-RIGHT */}
             <img
               src="/images/laughing elephant.png"
-              className="absolute top-0 right-0 w-20 sm:w-32 opacity-70"
+              alt="Elephant"
+              className="absolute top-2 right-2 w-16 sm:w-24 opacity-90 object-contain drop-shadow-xl"
             />
 
             {/* COUNTDOWN TEXT */}
-            <p className="text-3xl sm:text-5xl font-black text-white drop-shadow-2xl text-center tracking-tight px-4">
+            <p className="text-4xl sm:text-5xl font-black text-yellow-300 drop-shadow-2xl text-center tracking-tight px-4 mt-6">
               {count}
             </p>
 
-            {/* CAPTION */}
+            {/* CAPTION BELOW */}
             {caption && (
               <p className="text-md sm:text-xl text-white mt-3 font-semibold drop-shadow text-center px-3">
                 {caption}
               </p>
             )}
 
+            {/* FOOTER TAG */}
             <p className="mt-4 text-xs sm:text-sm italic text-white/80 text-center">
               Ngwa Day Countdown Meme • Share & Laugh 😄🔥
             </p>
           </div>
 
+          {/* DOWNLOAD BUTTON */}
           <button
             onClick={downloadImage}
-            className="mt-5 bg-green-700 text-white w-full py-3 rounded-lg font-bold shadow-lg hover:bg-green-800 transition"
+            className="mt-5 bg-yellow-600 text-black w-full py-3 rounded-lg font-bold shadow-lg hover:bg-yellow-700 transition"
           >
             Download Meme Card
           </button>

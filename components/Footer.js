@@ -1,7 +1,7 @@
 // components/Footer.js
 export default function Footer() {
   return (
-    <footer className="bg-[#7A0A0A] text-white pt-10 pb-6 mt-16">
+    <footer className="bg-[#064d2b] text-white pt-10 pb-6 mt-16">
       <div className="container mx-auto px-6 grid grid-cols-1 sm:grid-cols-3 gap-10 text-center sm:text-left">
 
         {/* SECTION 1 – ABOUT */}

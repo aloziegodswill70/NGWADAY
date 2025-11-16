@@ -7,7 +7,7 @@ export default function Home() {
     { label: "Vendors", href: "/vendors", color: "bg-[#B22222]" },
     { label: "Contents", href: "/contents", color: "bg-[#FFD700] text-black" },
     { label: "Connect", href: "/connect", color: "bg-[#006400]" },
-    { label: "Gallery", href: "/gallery", color: "bg-white text-[#B22222]" },
+    { label: "FrameGenerator", href: "/frame", color: "bg-white text-[#B22222]" },
     { label: "Donate", href: "/donate", color: "bg-[#B22222]" },
     { label: "meme", href: "/meme", color: "bg-white text-[#B22222]" },
   ];

@@ -32,7 +32,6 @@ export default function FlyerPreview({ flyerData }) {
       backgroundColor: "#ffffff",
       onclone: (clonedDoc) => {
         const clonedFlyer = clonedDoc.getElementById("flyer-canvas");
-
         clonedFlyer.style.transform = "none";
         clonedFlyer.style.opacity = "1";
       },
@@ -43,7 +42,6 @@ export default function FlyerPreview({ flyerData }) {
     try {
       setDownloading(true);
 
-      // Ensure image loads before capturing
       if (previewUrl) {
         await new Promise((resolve) => {
           const img = new Image();
@@ -107,29 +105,45 @@ export default function FlyerPreview({ flyerData }) {
 
   return (
     <div className="flex flex-col items-center space-y-4">
-      {/* Flyer Canvas */}
+
+      {/* CANVAS */}
       <div
         id="flyer-canvas"
         className="relative w-full max-w-[22rem] sm:max-w-sm md:max-w-md aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl border-4 border-white flex flex-col justify-between"
         style={{
           background:
-            "linear-gradient(180deg, #FFD700 0%, #FFF8DC 60%, #FFD700 100%)",
+            "linear-gradient(180deg, #0A5C0A 0%, #1C7F1C 60%, #0A5C0A 100%)",
         }}
       >
-        {/* Top Header */}
-        <div className="p-4 sm:p-6 text-center">
-          <h1 className="text-3xl sm:text-4xl font-extrabold text-red-700">
+
+        {/* LOGO (Top Left) */}
+        <img
+          src="/images/logongwaday.png"
+          alt="Logo"
+          className="absolute top-2 left-2 w-12 h-12 sm:w-14 sm:h-14 object-contain drop-shadow-md"
+        />
+
+        {/* ELEPHANT (Bottom Right) */}
+        <img
+          src="/images/elephant.png"
+          alt="Elephant"
+          className="absolute bottom-2 right-2 w-14 h-14 sm:w-16 sm:h-16 object-contain opacity-90 drop-shadow-lg"
+        />
+
+        {/* HEADER */}
+        <div className="pt-6 text-center">
+          <h1 className="text-3xl sm:text-4xl font-extrabold text-yellow-300 drop-shadow">
             NGWA DAY
           </h1>
-          <h2 className="text-4xl sm:text-5xl font-black text-red-600 tracking-tight">
+          <h2 className="text-4xl sm:text-5xl font-black text-white drop-shadow">
             {flyerData?.year || "2025"}
           </h2>
         </div>
 
-        {/* Uploaded Image */}
+        {/* USER PHOTO */}
         {previewUrl && (
-          <div className="flex justify-center items-center px-4">
-            <div className="w-28 h-28 sm:w-36 sm:h-36 md:w-40 md:h-40 rounded-2xl overflow-hidden shadow-lg border-4 border-white">
+          <div className="flex justify-center items-center px-4 mt-2">
+            <div className="w-24 h-24 sm:w-32 sm:h-32 rounded-xl overflow-hidden shadow-lg border-4 border-white">
               <img
                 src={previewUrl}
                 alt="Uploaded"
@@ -139,57 +153,49 @@ export default function FlyerPreview({ flyerData }) {
           </div>
         )}
 
-        {/* Text Section */}
-        <div className="text-center px-4 sm:px-6 space-y-2">
-          <h3 className="text-2xl sm:text-3xl font-bold text-[#222]">
+        {/* TEXT CONTENT */}
+        <div className="text-center px-4 sm:px-6 mt-3 space-y-2">
+          <h3 className="text-xl sm:text-2xl font-bold text-white">
             {flyerData?.name || "Your Name Here"}
           </h3>
 
-          <p className="italic text-sm sm:text-base text-[#333] opacity-80">
+          <p className="italic text-sm sm:text-base text-white/90">
             {flyerData?.slogan || "Ngwa Eye Doctor and Tech Guru"}
           </p>
 
-          <div className="h-[2px] w-20 bg-red-600 mx-auto my-2"></div>
+          <div className="h-[2px] w-20 bg-yellow-300 mx-auto my-2"></div>
 
-          <p className="text-base sm:text-lg font-semibold text-green-800">
+          <p className="text-base sm:text-lg font-semibold text-yellow-200">
             Theme:{" "}
-            <span className="text-red-700 font-bold italic">
+            <span className="text-white font-bold italic">
               Ngwaness: Umunna Ehila
             </span>
           </p>
 
-          <p className="text-sm sm:text-base text-[#222]">
+          <p className="text-sm sm:text-base text-white">
             📍 Ngwa High School, Aba
           </p>
 
-          <p className="text-sm sm:text-base text-[#222]">
+          <p className="text-sm sm:text-base text-white">
             📅 Dec 28, 2025 — Mark your calendar!
           </p>
         </div>
 
-        <div className="h-6 bg-gradient-to-t from-yellow-400/40 to-transparent"></div>
+        <div className="h-6"></div>
       </div>
 
-      {/* Buttons */}
+      {/* BUTTONS */}
       <div className="flex space-x-3">
-        {/* Download */}
         <button
           onClick={handleDownload}
-          disabled={downloading || sharing}
-          className={`bg-white text-black px-4 py-2 rounded-lg font-semibold shadow transition ${
-            downloading ? "opacity-50" : "hover:bg-yellow-100"
-          }`}
+          className="bg-white text-black px-4 py-2 rounded-lg font-semibold shadow hover:bg-yellow-200 transition"
         >
           {downloading ? "Preparing..." : "Download"}
         </button>
 
-        {/* Share */}
         <button
           onClick={handleShare}
-          disabled={sharing || downloading}
-          className={`bg-green-700 text-white px-4 py-2 rounded-lg font-semibold shadow transition ${
-            sharing ? "opacity-50" : "hover:bg-green-800"
-          }`}
+          className="bg-green-800 text-white px-4 py-2 rounded-lg font-semibold shadow hover:bg-green-900 transition"
         >
           {sharing ? "Sharing..." : "Share"}
         </button>
